@@ -1,4 +1,4 @@
-
+# coding=utf-8
 """
 Question:
 Similar to Question [1. Two Sum], except that the input array is already sorted in ascending order.
@@ -8,8 +8,8 @@ class Solution(object):
     """
     O(n log n) runtime, O(1) space – Binary search
     """
-    def __binary_search(a, key, start):
-        l = start, r = len(a) - 1
+    def __binary_search(self, a, key, l):
+        r = len(a) - 1
         while l <= r:
             m = (l + r) / 2
             if a[m] < key:
