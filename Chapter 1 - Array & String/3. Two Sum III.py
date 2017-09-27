@@ -1,5 +1,7 @@
 # coding=utf-8
 """
+O(n) runtime, O(n) space
+
 Question:
 Design and implement a TwoSum class. It should support the following operations: add and find.
 
