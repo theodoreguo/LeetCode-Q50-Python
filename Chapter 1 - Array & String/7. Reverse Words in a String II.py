@@ -24,7 +24,6 @@ class Solution(object):
                 __reverse_string(s, i, j)
                 i = j + 1
 
-
 if __name__ == '__main__':
     s = ['t', 'h', 'e', ' ', 's', 'k', 'y', ' ', 'i', 's', ' ', 'b', 'l', 'u', 'e']
     Solution().reverse_words(s)
