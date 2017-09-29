@@ -21,7 +21,7 @@ class Solution(object):
         :rtype: List[str]
         """
 
-        def getRange(lower, upper):
+        def get_range(lower, upper):
             if lower == upper:
                 return "{}".format(lower)
             else:
@@ -36,7 +36,7 @@ class Solution(object):
             else:
                 cur = nums[i]
             if cur - pre >= 2:
-                ranges.append(getRange(pre + 1, cur - 1))
+                ranges.append(get_range(pre + 1, cur - 1))
 
             pre = cur
 
