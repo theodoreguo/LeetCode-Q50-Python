@@ -10,5 +10,5 @@ By using the read4 API, implement the function int read(char *buf, int n) that r
 
 Note: The read function will only be called once for each test case.
 
-This question is aimed specially at Java, based the on read4 API defined in the parent class Reader4
+This question is aimed specially at Java, based the on read4 API defined in the parent class Reader4.
 """
