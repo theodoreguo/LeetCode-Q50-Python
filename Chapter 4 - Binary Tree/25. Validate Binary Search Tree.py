@@ -37,22 +37,6 @@ class TreeNode:
         self.right = None
 
 # O(n) runtime, O(n) stack space – Top-down recursion
-"""
-# @param root, a tree node
-    # @return a boolean
-class Solution {
-    func isValidBST(_ root: TreeNode?) -> Bool {
-        return valid(root, nil, nil)
-    }
-    
-    private func valid(_ p: TreeNode?, _ low: Int?, _ high: Int?) -> Bool {
-        guard let p = p else {
-            return true
-        }
-        let low = low, high = high
-        return (low == nil || p.val > low!) && (high == nil || p.val < high!)
-            && valid(p.left, low, p.val)
-            && valid(p.right, p.val, high)"""
 class Solution(object):
     def is_valid_BST(self, root):
         """
