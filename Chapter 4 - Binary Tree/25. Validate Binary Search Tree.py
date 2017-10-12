@@ -48,7 +48,7 @@ class Solution(object):
             :type p: TreeNode
             :type low: float
             :type high: float
-            :rtype bool
+            :rtype: bool
             """
             if not p:
                 return True
