@@ -37,6 +37,10 @@ statements could be avoided by inserting an extra node (also known as the dummy 
 """
 class Solution(object):
     def swap_pairs(self, head):
+        """
+        :type head: List[ListNode]
+        :rtype: ListNode
+        """
         dummy = ListNode(0)
         dummy.next = head
         p = head
@@ -52,6 +56,10 @@ class Solution(object):
 
 class Solution2:
     def swap_pairs(self, head):
+        """
+        :type head: List[ListNode]
+        :rtype: ListNode
+        """
         dummy = ListNode(0)
         dummy.next = head
         current = dummy
