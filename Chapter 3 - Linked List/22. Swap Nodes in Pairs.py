@@ -11,7 +11,7 @@ Q: What if the number of nodes in the linked list has only odd number of nodes?
 A: The last node should not be swapped.
 """
 
-# Definition for singly-linked list.
+# Definition for singly-linked list
 class ListNode:
     def __init__(self, x):
         self.val = x
