@@ -50,7 +50,24 @@ class Solution(object):
             p = r
         return dummy.next
 
+class Solution2:
+    def swap_pairs(self, head):
+        dummy = ListNode(0)
+        dummy.next = head
+        current = dummy
+        while current.next and current.next.next:
+            next_one, next_two, next_three = current.next, current.next.next, current.next.next.next
+            current.next = next_two
+            next_two.next = next_one
+            next_one.next = next_three
+            current = next_one
+        return dummy.next
+
 if __name__ == '__main__':
     head = ListNode(1)
     head.next, head.next.next, head.next.next.next = ListNode(2), ListNode(3), ListNode(4)
     print Solution().swap_pairs(head)
+
+    head2 = ListNode(1)
+    head2.next, head2.next.next, head2.next.next.next = ListNode(2), ListNode(3), ListNode(4)
+    print Solution2().swap_pairs(head2)
