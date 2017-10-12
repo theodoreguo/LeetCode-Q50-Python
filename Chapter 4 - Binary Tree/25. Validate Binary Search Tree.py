@@ -1,56 +1,79 @@
 # coding=utf-8
 """
 Question:
-Given a linked list, swap every two adjacent nodes and return its head.
-For example,
-Given 1 -> 2 -> 3 -> 4, you should return the list as 2 -> 1 -> 4 -> 3.
-Your algorithm should use only constant space. You may not modify the values in the list, only nodes itself can be changed.
+Given a binary tree, determine if it is a valid Binary Search Tree (BST).
 
-Example Questions Candidate Might Ask:
-Q: What if the number of nodes in the linked list has only odd number of nodes?
-A: The last node should not be swapped.
+Assume a BST is defined as follows:
+- The left subtree of a node contains only nodes with keys less than the node's key.
+- The right subtree of a node contains only nodes with keys greater than the node's key.
+- Both the left and right subtrees must also be binary search trees.
+
+Example 1:
+   2
+  / \
+ 1   3
+Binary tree [2,1,3], return true.
+
+Example 2:
+   1
+  / \
+ 2   3
+Binary tree [1,2,3], return false.
+
+Example 3:
+  10
+  / \
+ 5  15
+    / \
+   6   20
+It’s obvious that this is not a valid BST, since (6) could never be on the right of (10).
 """
 
-# Definition for singly-linked list.
-class ListNode:
+# Definition for a binary tree node
+class TreeNode:
     def __init__(self, x):
         self.val = x
-        self.next = None
+        self.left = None
+        self.right = None
 
-    def __repr__(self):
-        if self:
-            return "{} -> {}".format(self.val, self.next)
-
+# O(n) runtime, O(n) stack space – Top-down recursion
 """
-O(n) runtime, O(1) space
-
-Let’s assume p, q, r are the current, next, and next’s next node.
-We could swap the nodes pairwise by adjusting where it’s pointing next: 
-q.next = p
-p.next = r
-The above operations transform the list from {p -> q -> r -> s} to {q -> p -> r -> s}. 
-If the next pair of nodes exists, we should remember to connect p’s next to s. 
-Therefore, we should record the current node before advancing to the next pair of nodes.
- 
-To determine the new list’s head, you look at if the list contains two or more elements. Basically, these extra conditional 
-statements could be avoided by inserting an extra node (also known as the dummy head) to the front of the list.
-"""
+# @param root, a tree node
+    # @return a boolean
+class Solution {
+    func isValidBST(_ root: TreeNode?) -> Bool {
+        return valid(root, nil, nil)
+    }
+    
+    private func valid(_ p: TreeNode?, _ low: Int?, _ high: Int?) -> Bool {
+        guard let p = p else {
+            return true
+        }
+        let low = low, high = high
+        return (low == nil || p.val > low!) && (high == nil || p.val < high!)
+            && valid(p.left, low, p.val)
+            && valid(p.right, p.val, high)"""
 class Solution(object):
-    def swap_pairs(self, head):
-        dummy = ListNode(0)
-        dummy.next = head
-        p = head
-        prev = dummy
-        while p and p.next:
-            q, r = p.next, p.next.next
-            prev.next = q
-            q.next = p
-            p.next = r
-            prev = p
-            p = r
-        return dummy.next
+    def is_valid_BST(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        def valid(p, low, high):
+            """
+            :type p: TreeNode
+            :type low: float
+            :type high: float
+            :rtype bool
+            """
+            if not p:
+                return True
+            return p.val > low and p.val < high and valid(p.left, low, p.val) and valid(p.right, p.val, high)
+
+        return valid(root, float("-inf"), float("inf"))
 
 if __name__ == '__main__':
-    head = ListNode(1)
-    head.next, head.next.next, head.next.next.next = ListNode(2), ListNode(3), ListNode(4)
-    print Solution().swap_pairs(head)
+    root = TreeNode(2)
+    root.left = TreeNode(1)
+    root.right = TreeNode(3)
+    print Solution().is_valid_BST(root)
