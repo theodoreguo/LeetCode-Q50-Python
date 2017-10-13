@@ -1,56 +1,96 @@
 # coding=utf-8
 """
 Question:
-Given a linked list, swap every two adjacent nodes and return its head.
-For example,
-Given 1 -> 2 -> 3 -> 4, you should return the list as 2 -> 1 -> 4 -> 3.
-Your algorithm should use only constant space. You may not modify the values in the list, only nodes itself can be changed.
+Given a sorted array and a target value, return the index if the target is found. If not, return the index where it
+would be if it were inserted in order.
 
-Example Questions Candidate Might Ask:
-Q: What if the number of nodes in the linked list has only odd number of nodes?
-A: The last node should not be swapped.
+You may assume no duplicates in the array.
+
+Here are few examples.
+ [1, 3, 5, 6], 5 → 2
+ [1, 3, 5, 6], 2 → 1
+ [1, 3, 5, 6], 7 → 4
+ [1, 3, 5, 6], 0 → 0
 """
 
-# Definition for singly-linked list.
-class ListNode:
-    def __init__(self, x):
-        self.val = x
-        self.next = None
 
-    def __repr__(self):
-        if self:
-            return "{} -> {}".format(self.val, self.next)
 
 """
-O(n) runtime, O(1) space
+O(log n) runtime, O(1) space
 
-Let’s assume p, q, r are the current, next, and next’s next node.
-We could swap the nodes pairwise by adjusting where it’s pointing next: 
-q.next = p
-p.next = r
-The above operations transform the list from {p -> q -> r -> s} to {q -> p -> r -> s}. 
-If the next pair of nodes exists, we should remember to connect p’s next to s. 
-Therefore, we should record the current node before advancing to the next pair of nodes.
- 
-To determine the new list’s head, you look at if the list contains two or more elements. Basically, these extra conditional 
-statements could be avoided by inserting an extra node (also known as the dummy head) to the front of the list.
+It's a direct application of Binary Search, as the keywords sorted and finding target can be spotted easily.
+When the while loop ends, l must be equal to r and it is a valid index.
+If nums[l] is greater than target, that means we are inserting target before nums[l], so we return l. If nums[l] is less 
+than target, that means we insert target after nums[l], so we return l + 1.
 """
-class Solution(object):
-    def swap_pairs(self, head):
-        dummy = ListNode(0)
-        dummy.next = head
-        p = head
-        prev = dummy
-        while p and p.next:
-            q, r = p.next, p.next.next
-            prev.next = q
-            q.next = p
-            p.next = r
-            prev = p
-            p = r
-        return dummy.next
+"""
+class Solution {
+    func searchInsert(_ nums: [Int], _ target: Int) -> Int {
+        var l = 0, r = nums.count - 1
+        while l < r {
+            let m = (l + r) / 2
+            if nums[m] < target {
+                l = m + 1
+            } else {
+                r = m
+            }
+        }
+        return (nums[l] < target) ? l + 1 : l
+    }
+}
+
+class Solution2 {
+    func searchInsert(_ nums: [Int], _ target: Int) -> Int {
+        var l = 0, r = nums.count - 1
+        while l <= r {
+            let m = (l + r) / 2
+            if nums[m] < target {
+                l = m + 1
+            } else if nums[m] > target {
+                r = m - 1
+            } else {
+                return m
+            }
+        }
+        return nums.count // The postion is to append after the last element.
+    }"""
+class Solution:
+    def search_insert(self, nums, target):
+        """
+        :type nums: [int]
+        :type target: int
+        :rtype int
+        """
+        l, r = 0, len(nums) - 1
+        while l < r:
+            m = (l + r) / 2
+            if nums[m] < target:
+                l = m + 1
+            else:
+                r = m
+        return l + 1 if nums[l] < target else l
+
+class Solution2:
+    def search_insert(self, nums, target):
+        """
+        :type nums: [int]
+        :type target: int
+        :rtype int
+        """
+        l, r = 0, len(nums) - 1
+        while l <= r:
+            m = (l + r) / 2
+            if nums[m] < target:
+                l = m + 1
+            elif nums[m] > target:
+                r = m - 1
+            else:
+                return m
+        return len(nums)  # The postion is to append after the last element
 
 if __name__ == '__main__':
-    head = ListNode(1)
-    head.next, head.next.next, head.next.next.next = ListNode(2), ListNode(3), ListNode(4)
-    print Solution().swap_pairs(head)
+    print Solution().search_insert([1, 3, 5, 6], 7)
+    print Solution().search_insert([2, 3, 5, 9], 3)
+    print '-----' * 5
+    print Solution2().search_insert([1, 3, 5, 6], 7)
+    print Solution2().search_insert([2, 3, 5, 9], 3)
