@@ -1,56 +1,67 @@
 # coding=utf-8
 """
 Question:
-Given a linked list, swap every two adjacent nodes and return its head.
-For example,
-Given 1 -> 2 -> 3 -> 4, you should return the list as 2 -> 1 -> 4 -> 3.
-Your algorithm should use only constant space. You may not modify the values in the list, only nodes itself can be changed.
+Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.
+push(x) – Push element x onto stack.
+pop() – Removes the element on top of the stack.
+top() – Get the top element.
+getMin() – Retrieve the minimum element in the stack.
 
-Example Questions Candidate Might Ask:
-Q: What if the number of nodes in the linked list has only odd number of nodes?
-A: The last node should not be swapped.
+Example:
+MinStack minStack = new MinStack();
+minStack.push(-2);
+minStack.push(0);
+minStack.push(-3);
+minStack.getMin();   --> Returns -3.
+minStack.pop();
+minStack.top();      --> Returns 0.
+minStack.getMin();   --> Returns -2.
+
+Hints:
+Consider space-time tradeoff. How would you keep track of the minimums using extra space?
+Make sure to consider duplicate elements.
 """
 
-# Definition for singly-linked list.
-class ListNode:
-    def __init__(self, x):
-        self.val = x
-        self.next = None
+# O(n) runtime, O(1) space
+class MinStack:
+    def __init__(self):
+        self.min = None
+        self.stack = []
 
-    def __repr__(self):
-        if self:
-            return "{} -> {}".format(self.val, self.next)
+    # @param x, an integer
+    # @return an integer
+    def push(self, x):
+        if not self.stack:
+            self.stack.append(0)
+            self.min = x
+        else:
+            self.stack.append(x - self.min)
+            if x < self.min:
+                self.min = x
 
-"""
-O(n) runtime, O(1) space
+    # @return nothing
+    def pop(self):
+        x = self.stack.pop()
+        if x < 0:
+            self.min = self.min - x
 
-Let’s assume p, q, r are the current, next, and next’s next node.
-We could swap the nodes pairwise by adjusting where it’s pointing next: 
-q.next = p
-p.next = r
-The above operations transform the list from {p -> q -> r -> s} to {q -> p -> r -> s}. 
-If the next pair of nodes exists, we should remember to connect p’s next to s. 
-Therefore, we should record the current node before advancing to the next pair of nodes.
- 
-To determine the new list’s head, you look at if the list contains two or more elements. Basically, these extra conditional 
-statements could be avoided by inserting an extra node (also known as the dummy head) to the front of the list.
-"""
-class Solution(object):
-    def swap_pairs(self, head):
-        dummy = ListNode(0)
-        dummy.next = head
-        p = head
-        prev = dummy
-        while p and p.next:
-            q, r = p.next, p.next.next
-            prev.next = q
-            q.next = p
-            p.next = r
-            prev = p
-            p = r
-        return dummy.next
+    # @return an integer
+    def top(self):
+        x = self.stack[-1]
+        if x > 0:
+            return x + self.min
+        else:
+            return self.min
+
+    # @return an integer
+    def getMin(self):
+        return self.min
 
 if __name__ == '__main__':
-    head = ListNode(1)
-    head.next, head.next.next, head.next.next.next = ListNode(2), ListNode(3), ListNode(4)
-    print Solution().swap_pairs(head)
+    stack = MinStack()
+    stack.push(-2)
+    stack.push(0)
+    stack.push(-3)
+    print [stack.top(), stack.getMin()]
+    stack.pop()
+    print [stack.top(), stack.getMin()]
