@@ -1,56 +1,47 @@
 # coding=utf-8
 """
 Question:
-Given a linked list, swap every two adjacent nodes and return its head.
-For example,
-Given 1 -> 2 -> 3 -> 4, you should return the list as 2 -> 1 -> 4 -> 3.
-Your algorithm should use only constant space. You may not modify the values in the list, only nodes itself can be changed.
-
-Example Questions Candidate Might Ask:
-Q: What if the number of nodes in the linked list has only odd number of nodes?
-A: The last node should not be swapped.
+Given a matrix of m ✕ n elements (m rows, n columns), return all elements of the matrix in spiral order.
+For example, given the following matrix:
+ [
+    [ 1, 2, 3 ],
+    [ 4, 5, 6 ],
+    [ 7, 8, 9 ]
+ ]
+You should return [1, 2, 3, 6, 9, 8, 7, 4, 5].
 """
 
-# Definition for singly-linked list.
-class ListNode:
-    def __init__(self, x):
-        self.val = x
-        self.next = None
+# O(mn) runtime, O(1) space
+class Solution:
+    def spiral_order(self, matrix):
+        """
+        :type matrix: a list of lists of integers
+        :rtype: List[int]
+        """
+        result = []
+        if matrix == []:
+            return result
 
-    def __repr__(self):
-        if self:
-            return "{} -> {}".format(self.val, self.next)
+        left, right, top, bottom = 0, len(matrix[0]) - 1, 0, len(matrix) - 1
 
-"""
-O(n) runtime, O(1) space
+        while left <= right and top <= bottom:
+            for j in xrange(left, right + 1):
+                result.append(matrix[top][j])
+            for i in xrange(top + 1, bottom):
+                result.append(matrix[i][right])
+            for j in reversed(xrange(left, right + 1)):
+                if top < bottom:
+                    result.append(matrix[bottom][j])
+            for i in reversed(xrange(top + 1, bottom)):
+                if left < right:
+                    result.append(matrix[i][left])
+            left, right, top, bottom = left + 1, right - 1, top + 1, bottom - 1
 
-Let’s assume p, q, r are the current, next, and next’s next node.
-We could swap the nodes pairwise by adjusting where it’s pointing next: 
-q.next = p
-p.next = r
-The above operations transform the list from {p -> q -> r -> s} to {q -> p -> r -> s}. 
-If the next pair of nodes exists, we should remember to connect p’s next to s. 
-Therefore, we should record the current node before advancing to the next pair of nodes.
- 
-To determine the new list’s head, you look at if the list contains two or more elements. Basically, these extra conditional 
-statements could be avoided by inserting an extra node (also known as the dummy head) to the front of the list.
-"""
-class Solution(object):
-    def swap_pairs(self, head):
-        dummy = ListNode(0)
-        dummy.next = head
-        p = head
-        prev = dummy
-        while p and p.next:
-            q, r = p.next, p.next.next
-            prev.next = q
-            q.next = p
-            p.next = r
-            prev = p
-            p = r
-        return dummy.next
+        return result
+
 
 if __name__ == '__main__':
-    head = ListNode(1)
-    head.next, head.next.next, head.next.next.next = ListNode(2), ListNode(3), ListNode(4)
-    print Solution().swap_pairs(head)
+    print Solution().spiral_order([[ 1, 2, 3 ],
+                                  [ 4, 5, 6 ],
+                                  [ 7, 8, 9 ]])
+    print Solution().spiral_order([[2, 3]])
