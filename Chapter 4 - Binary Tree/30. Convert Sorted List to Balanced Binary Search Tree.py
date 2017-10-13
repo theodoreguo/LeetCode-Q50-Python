@@ -56,9 +56,9 @@ class Solution:
             return None
 
         mid = (start + end) / 2
-        leftChild = self._sorted_list_to_BST(start, mid - 1)
+        left_child = self._sorted_list_to_BST(start, mid - 1)
         parent = TreeNode(self.list.val)
-        parent.left = leftChild
+        parent.left = left_child
         self.list = self.list.next
         parent.right = self._sorted_list_to_BST(mid + 1, end)
         return parent
