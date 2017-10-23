@@ -29,7 +29,7 @@ Since we only need to access its previous elements at each step, two variables a
 class Solution:
     def max_subarray(self, nums):
         """
-        :type obstacle_grid: [int]
+        :type nums: [int]
         :rtype int
         """
         max_product, min_product, max_ans = nums[0], nums[0], nums[0]
