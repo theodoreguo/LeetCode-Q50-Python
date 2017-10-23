@@ -22,7 +22,7 @@ end at index k, while the latter is the global maximum subarray sum.
 class Solution:
     def max_subarray(self, nums):
         """
-        :type obstacle_grid: [int]
+        :type nums: [int]
         :rtype int
         """
         max_ending_here, max_so_far = nums[0], nums[0]
