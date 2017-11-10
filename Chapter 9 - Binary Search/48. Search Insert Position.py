@@ -13,8 +13,6 @@ Here are few examples.
  [1, 3, 5, 6], 0 → 0
 """
 
-
-
 """
 O(log n) runtime, O(1) space
 
@@ -23,37 +21,6 @@ When the while loop ends, l must be equal to r and it is a valid index.
 If nums[l] is greater than target, that means we are inserting target before nums[l], so we return l. If nums[l] is less 
 than target, that means we insert target after nums[l], so we return l + 1.
 """
-"""
-class Solution {
-    func searchInsert(_ nums: [Int], _ target: Int) -> Int {
-        var l = 0, r = nums.count - 1
-        while l < r {
-            let m = (l + r) / 2
-            if nums[m] < target {
-                l = m + 1
-            } else {
-                r = m
-            }
-        }
-        return (nums[l] < target) ? l + 1 : l
-    }
-}
-
-class Solution2 {
-    func searchInsert(_ nums: [Int], _ target: Int) -> Int {
-        var l = 0, r = nums.count - 1
-        while l <= r {
-            let m = (l + r) / 2
-            if nums[m] < target {
-                l = m + 1
-            } else if nums[m] > target {
-                r = m - 1
-            } else {
-                return m
-            }
-        }
-        return nums.count // The postion is to append after the last element.
-    }"""
 class Solution:
     def search_insert(self, nums, target):
         """
