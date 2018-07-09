@@ -53,7 +53,7 @@ class Solution2:
                 r = m - 1
             else:
                 return m
-        return len(nums)  # The postion is to append after the last element
+        return len(nums)  # The position is to append after the last element
 
 if __name__ == '__main__':
     print Solution().search_insert([1, 3, 5, 6], 7)
