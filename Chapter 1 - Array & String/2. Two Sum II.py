@@ -10,15 +10,22 @@ class Solution(object):
     """
     def __binary_search(self, a, key, l):
         r = len(a) - 1
-        while l <= r:
+        # while l <= r:
+        #     m = (l + r) / 2
+        #     if a[m] < key:
+        #         l = m + 1
+        #     elif a[m] > key:
+        #         r = m - 1
+        #     else:
+        #         return m
+        # return -1
+        while l < r:
             m = (l + r) / 2
             if a[m] < key:
                 l = m + 1
-            elif a[m] > key:
-                r = m - 1
             else:
-                return m
-        return -1
+                r = m
+        return l if l == r and a[l] == key else -1
     
     def two_sum(self, nums, target):
         for i in range(len(nums) - 1):
