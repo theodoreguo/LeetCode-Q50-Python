@@ -40,6 +40,25 @@ class Solution2:
                 new_string += s[i:j]
         return new_string
 
+import re
+class Solution3:
+    # @param s, a string
+    # @return a string
+    def reverse_words(self, s):
+        s = list(s)
+        def __reverse_string(s, start, end):
+            for i in xrange((end - start) / 2):
+                s[start + i], s[end - 1 - i] = s[end - 1 - i], s[start + i]
+
+        __reverse_string(s, 0, len(s))
+        i = 0
+        for j in xrange(len(s) + 1):
+            if j == len(s) or s[j] == ' ':
+                __reverse_string(s, i, j)
+                i = j + 1
+        return re.sub(' +', ' ', ''.join(s).strip())
+
 if __name__ == '__main__':
     print Solution().reverse_words(' the  sky is   blue ')
     print Solution2().reverse_words(' the  sky is   blue ')
+    print Solution3().reverse_words(' the  sky is   blue ')
