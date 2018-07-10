@@ -22,5 +22,24 @@ class Solution:
     def reverse_words(self, s):
         return ' '.join(reversed(s.split()))
 
+class Solution2(object):
+    # @param s, a string
+    # @return a string
+    def reverse_words(self, s):
+        new_string = ''
+        j = len(s)
+        # iterate the string in a reversed order
+        for i in range(len(s) - 1, -1, -1):
+            # trim the trailing space
+            if s[i] == ' ':
+                j = i
+            # if we encountered a " " before the worlds, we know a word ended here, append " " or the word
+            elif i == 0 or s[i - 1] == ' ':
+                if len(new_string) != 0:
+                    new_string += ' '
+                new_string += s[i:j]
+        return new_string
+
 if __name__ == '__main__':
     print Solution().reverse_words(' the  sky is   blue ')
+    print Solution2().reverse_words(' the  sky is   blue ')
