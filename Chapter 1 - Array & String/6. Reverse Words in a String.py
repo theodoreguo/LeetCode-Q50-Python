@@ -22,7 +22,7 @@ class Solution:
     def reverse_words(self, s):
         return ' '.join(reversed(s.split()))
 
-class Solution2(object):
+class Solution2:
     # @param s, a string
     # @return a string
     def reverse_words(self, s):
