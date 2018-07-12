@@ -45,8 +45,8 @@ class Solution(object):
             i += 1
 
         # Boundary value handling
-        while i < len(s) and s[i] >= '0' and s[i] <= '9':
-            if result > (INT_MAX - (ord(s[i]) - ord('0'))) / 10:
+        while i < len(s) and s[i] >= '0' and s[i] <= '9': # Ensure s[i] is digit
+            if result > (INT_MAX - (ord(s[i]) - ord('0'))) / 10: # e.g., ord('3') - ord('0') = 51 - 48 = 3
                 return INT_MAX if sign > 0 else INT_MIN
             result = result * 10 + ord(s[i]) - ord('0')
             i += 1
